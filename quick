@@ -1,0 +1,32 @@
+def partition(a, low, high):
+    z = a[(low + high) // 2]
+    i = low - 1
+    j = high + 1
+    while True:
+        i += 1
+        while a[i] < z:
+            i += 1
+        j -= 1
+        while a[j] > z:
+            j -= 1
+        if i >= j:
+            return j
+        a[i], a[j] = a[j], a[i]
+
+def quick(a):
+    def quick2(b, low, high):
+        if low < high:
+            split_index = partition(b, low, high)
+            quick2(b, low, split_index)
+            quick2(b, split_index + 1, high)
+    quick2(a, 0, len(a) - 1)
+
+n = int(input())
+a = []
+for i in range (n):
+    element = int(input())
+    a.append(element)
+print (*a)
+
+quick(a)
+print (*a)
